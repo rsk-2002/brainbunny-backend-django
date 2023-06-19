@@ -1,0 +1,78 @@
+{% extends 'index.html' %}
+
+{% block title %}@{{request.user.username}} Profile Edit - BrainBunny{% endblock title %}
+
+{% block content %}
+
+  <h1 class="display-4 text-center my-5">Edit Profile</h1>
+
+
+  <div class="container">
+    <div class="row row-cols-sm-1 row-cols-lg-3 container">
+      <div class="col-12">
+      </div>
+      <div class="col-12">
+
+
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3 d-flex justify-content-center">
+                <img src="{{user_profile.profile_img.url}}" alt="profile-pic" width="150" height="150" class="rounded-circle">
+            </div>
+
+            <div class="mb-3">
+                {% for message in messages %}
+                <h5 class="text-danger">{{message}}</h5>
+                {% endfor %}
+              </div>
+          <div class="mb-3">
+            <label for="exampleInputImage" class="form-label visually-hidden">Profile Image</label>
+            <input type="file" name="profile_img" class="form-control" id="exampleInputImage">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputFirstName" class="form-label visually-hidden">First Name</label>
+            <input type="text" name="firstname" value="{{user_profile.user.first_name}}" class="form-control" id="exampleInputFirstName" placeholder="First Name" required>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputLastName" class="form-label visually-hidden">Last Name</label>
+            <input type="text" name="lastname" value="{{user_profile.user.last_name}}" class="form-control" id="exampleInputLastName" placeholder="Last Name" required>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail2" class="form-label visually-hidden">Email</label>
+            <input type="email" name="email" value="{{user_profile.user.email}}" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp"
+              placeholder="Email" required>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputUsername1" class="form-label visually-hidden">Username</label>
+            <input type="text" name="username" value="{{user_profile.user.username}}" class="form-control" id="exampleInputUsername1" aria-describedby="emailHelp"
+              placeholder="Username" required>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputLocation" class="form-label visually-hidden">Location</label>
+            <input type="text" name="location" value="{{user_profile.location}}" class="form-control" id="exampleInputLocation" placeholder="Location" required>
+          </div>
+          
+          <div class="mb-3">
+            <label for="exampleInputGender" class="form-label visually-hidden">Gender</label>
+            <select class="form-select form-control" name="gender" id="exampleInputGender" aria-label="Default select example" required>
+                <option selected>Choose Your Gender</option>
+                <option {% if user_profile.gender == 'Male' %}selected{% endif %} value="Male">Male</option>
+                <option {% if user_profile.gender == 'Female' %}selected{% endif %} value="Female">Female</option>
+                <option {% if user_profile.gender == 'Other' %}selected{% endif %} value="Other">Other</option>
+              </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label visually-hidden">Your Bio</label>
+            <textarea class="form-control" name="bio" id="exampleFormControlTextarea1" rows="3" placeholder="Your Bio" required>{{user_profile.bio}}</textarea>
+          </div>
+          
+          <button type="submit" class="btn btn-success">Save Profile</button>
+        </form>
+      </div>
+      <div class="col-12">
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}

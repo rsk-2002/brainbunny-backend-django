@@ -6,10 +6,12 @@
 
     <h1 class="display-4 text-center my-5">@{{user_profile2.user.username}}'s Profile</h1>
     <div class="container text-center">
+        {% if request.user.username == user_profile2.user.username %}
         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-            <button type="button" class="btn btn-outline-primary">Edit</button>
-            <button type="button" class="btn btn-outline-danger">Delete</button>
+            <a href="{% url 'edit_profile' %}" type="button" class="btn btn-outline-primary">Edit</a>
+            <a href="{% url 'delete_profile' %}" type="button" class="btn btn-outline-danger">Delete</a>
         </div>
+        {% endif %}
 
         <div class="container text-center my-4">
             <div class="row row-cols-sm-1 row-cols-md-2">

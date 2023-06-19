@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+
+{% block title %}@{{request.user.username}} Profile Delete Confirmation - BrainBunny{% endblock title %}
+
+{% block content %}
+
+
+<h1 class="display-4 text-center my-5">Confirmation Page</h1>
+
+  <div class="container">
+    <form action="" method="POST" class="">
+        {% csrf_token %}
+        <p class="fs-4"><b>@{{request.user.username}}</b>, Are you sure you want to delete your profile??</p>
+        <a href="{% url 'profile' request.user.username %}" class="btn btn-success" type="button">Back to Profile</a>
+        <input class="btn btn-danger" type="submit" value="Confirm">
+    </form>
+  </div>
+
+{% endblock content %}

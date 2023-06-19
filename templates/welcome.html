@@ -10,9 +10,11 @@
         <a href="./all-quiz.html" class="d-inline-flex align-items-center btn btn-primary btn-lg px-4">
             Take a quiz
         </a>
+        {% if not request.user.is_authenticated %}
         <a href="{% url 'register' %}" class="btn btn-outline-secondary btn-lg px-4" type="button">
             Sign Up
         </a>
+        {% endif %}
     </div>
 </div>
 

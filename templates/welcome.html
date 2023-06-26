@@ -7,7 +7,7 @@
     <h1 class="display-5 fw-bold my-2">Welcome to BrainBunny</h1>
     <p class="fs-3">Not just make your ranking in college but also in knowledge</p>
     <div class="d-inline-flex gap-2 mb-5">
-        <a href="./all-quiz.html" class="d-inline-flex align-items-center btn btn-primary btn-lg px-4">
+        <a href="{% url 'all_quiz' %}" class="d-inline-flex align-items-center btn btn-primary btn-lg px-4">
             Take a quiz
         </a>
         {% if not request.user.is_authenticated %}

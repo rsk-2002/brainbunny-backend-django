@@ -8,10 +8,10 @@
 
 
 	<div class="container">
-		<div class="d-flex">
-			<a href="{% url 'all_quiz' %}" class="btn btn-light me-2">All Quiz</a>
+		<div class="d-flex flex-wrap">
+			<a href="{% url 'all_quiz' %}" class="btn btn-sm btn-light m-1">All Quiz</a>
 			{% for category in categories %}
-			<a href="{% url 'search' category.name %}" class="btn btn-light me-2">{{category.name}}</a>
+			<a href="{% url 'search' category.name %}" class="btn btn-sm btn-light m-1">{{category.name}}</a>
 			{% endfor %}
 		</div>
 	</div>
@@ -30,11 +30,11 @@
 				<div class="card shadow-sm">
 					<div class="card-body">
 						<h4>{{quiz.title}}</h4>
-						<p class="card-text">Total Questions - 10</p>
+						<p class="card-text">Total Questions - {{quiz.question_set.all|length}}</p>
 						<p class="card-text">{{quiz.description|truncatewords:7}}</p>
 						<div class="d-flex justify-content-between align-items-center">
 							<div class="btn-group">
-								<a href="./quiz.html" type="button" class="btn btn-sm btn-outline-success">Start
+								<a href="{% url 'quiz' quiz.id %}" type="button" class="btn btn-sm btn-outline-success">Start
 									Quiz</a>
 							</div>
 							<small class="text-body-secondary">{{quiz.created_at|timesince}} ago</small>

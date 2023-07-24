@@ -44,24 +44,14 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for submission in submissions %}
                             <tr>
-                                <th scope="row">1</th>
-                                <td>Newton's Law</td>
-                                <td>9/10</td>
-                                <td>2 weeks ago</td>
+                                <th scope="row">{{forloop.counter}}</th>
+                                <td title="{{submission.quiz.title}}">{{submission.quiz.title|truncatewords:4}}</td>
+                                <td>{{submission.score}}/{{submission.quiz.question_set.all|length}}</td>
+                                <td>{{submission.submitted_at|timesince}} ago</td>
                             </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Newton's Law</td>
-                                <td>9/10</td>
-                                <td>2 weeks ago</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Newton's Law</td>
-                                <td>9/10</td>
-                                <td>3 weeks ago</td>
-                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>

@@ -1,118 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'index.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to BrainBunny</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+{% block title %}Leaderboard - BrainBunny{% endblock title %}
 
-    <link rel="stylesheet" href="./style.css">
-</head>
+{% block content %}
+<div class="container text-center">
+    <h1 class="display-4 text-center my-5">Leaderboard</h1>
 
-<body>
-    <div class="container text-center my-2 d-sm-block d-lg-none">
-        <div class="btn-group" role="group" aria-label="Basic outlined example">
-            <a href="./index.html" class="btn btn-outline-primary">Home</a>
-            <a href="./all-quiz.html" class="btn btn-outline-primary">Quiz</a>
-            <a href="./leaderboard.html" class="btn btn-outline-primary">Leaderboard</a>
-            <a href="./login.html" class="btn btn-outline-primary">Login</a>
+    <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 mx-3">
+        {% if leaderboard_users|length == 0 %}
+        <div class="col-lg-4 position-relative mb-4">
+            <h4 class="text-center text-danger">No User Available on Leaderboard!!</h4>
         </div>
+        {% else %}
+        {% for rank in leaderboard_users %}
+        <div class="col-lg-4 position-relative mb-4">
+            <img src="{{rank.user.profile.profile_img.url}}" class="img-fluid" width="150" height="150" alt="user-profile">
+            <span class="position-absolute top-0 start-90 translate-middle badge rounded-pill bg-success">{{forloop.counter}}</span>
+            <h2 class="fw-normal">@{{rank.user.username}}</h2>
+            <p>{{rank.user.profile.bio|truncatewords:5}}</p>
+            <p><a class="btn btn-secondary" href="{% url 'profile' rank.user.username  %}">View Profile »</a></p>
+        </div>
+        {% endfor %}
+        {% endif %}
     </div>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary d-none d-lg-block">
-        <div class="container">
-            <a class="navbar-brand" href="./index.html">BrainBunny</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./all-quiz.html">Quiz</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./leaderboard.html">Leaderboard</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Other
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Blog</a></li>
-                            <li><a class="dropdown-item" href="#">About</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Downloads</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                    <a href="./login.html" class="btn btn-primary ms-2">Login</a>
-                </form>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container text-center">
-        <h1 class="display-4 text-center my-5">Leaderboard</h1>
-
-        <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 mx-3">
-            <div class="col-lg-4 position-relative mb-4">
-                <img src="./user.png" class="img-fluid" width="150" height="150" alt="user-profile">
-                <span class="position-absolute top-0 start-90 translate-middle badge rounded-pill bg-success">1</span>
-                <h2 class="fw-normal">@aman</h2>
-                <p>Some representative placeholder content for the three columns of text below the.</p>
-                <p><a class="btn btn-secondary" href="./profile.html">View Profile »</a></p>
-            </div>
-            <div class="col-lg-4 position-relative mb-4">
-                <img src="./user.png" class="img-fluid" width="150" height="150" alt="user-profile">
-                <span class="position-absolute top-0 start-90 translate-middle badge rounded-pill bg-success">2</span>
-                <h2 class="fw-normal">@aman</h2>
-                <p>Some representative placeholder content for the three columns of text below the.</p>
-                <p><a class="btn btn-secondary" href="./profile.html">View Profile »</a></p>
-            </div>
-            <div class="col-lg-4 position-relative mb-4">
-                <img src="./user.png" class="img-fluid" width="150" height="150" alt="user-profile">
-                <span class="position-absolute top-0 start-90 translate-middle badge rounded-pill bg-success">3</span>
-                <h2 class="fw-normal">@aman</h2>
-                <p>Some representative placeholder content for the three columns of text below the.</p>
-                <p><a class="btn btn-secondary" href="./profile.html">View Profile »</a></p>
-            </div>
-            <div class="col-lg-4 position-relative mb-4">
-                <img src="./user.png" class="img-fluid" width="150" height="150" alt="user-profile">
-                <span class="position-absolute top-0 start-90 translate-middle badge rounded-pill bg-success">4</span>
-                <h2 class="fw-normal">@aman</h2>
-                <p>Some representative placeholder content for the three columns of text below the.</p>
-                <p><a class="btn btn-secondary" href="./profile.html">View Profile »</a></p>
-            </div>
-        </div>
-
-        <footer class="py-3 my-4">
-            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Contact</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Feedback</a></li>
-            </ul>
-            <p class="text-center text-body-secondary">© 2023, BrainBunny</p>
-        </footer>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-            crossorigin="anonymous"></script>
-</body>
-
-</html>
+</div>
+{% endblock content %}

@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, auth
 from .models import Profile
+from quiz.models import QuizSubmission
 
 
 # Create your views here.
@@ -64,7 +65,9 @@ def profile(request, username):
     user_object = User.objects.get(username=request.user)
     user_profile = Profile.objects.get(user=user_object)
 
-    context = {"user_profile": user_profile, "user_profile2": user_profile2}
+    submissions = QuizSubmission.objects.filter(user=user_object2)
+
+    context = {"user_profile": user_profile, "user_profile2": user_profile2, "submissions":submissions}
     return render(request, "profile.html", context)
 
 @login_required(login_url='login')

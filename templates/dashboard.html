@@ -1,0 +1,92 @@
+{% extends 'index.html' %}
+{% block title %}Dashboard - BrainBunny{% endblock title %}
+
+{% block content %}
+
+    <h1 class="display-4 text-center my-5">Dashboard</h1>
+
+    <!-- Dashboard Code Goes Here -->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3 mb-3">
+                <div class="card">
+                    <div class="card-body text-center mt-4">
+                        <h1 class="card-title pricing-card-title">{{total_users}}</h1>
+                        <p class="card-text">Active Users</p>
+                        <ul class="list-group mt-5">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Today
+                                <span class="badge bg-primary rounded-pill">{{today_users}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Gain %
+                                <span class="badge bg-primary rounded-pill">{{gain_users|default:0}}%</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 mb-3">
+                <div class="card">
+                    <div class="card-body text-center mt-4">
+                        <h1 class="card-title pricing-card-title">{{total_quizzes}}</h1>
+                        <p class="card-text">Quizzes</p>
+                        <ul class="list-group mt-5">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Today
+                                <span class="badge bg-primary rounded-pill">{{today_quizzes}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Gain %
+                                <span class="badge bg-primary rounded-pill">{{gain_quizzes|default:0}}%</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 mb-3">
+                <div class="card">
+                    <div class="card-body text-center mt-4">
+                        <h1 class="card-title pricing-card-title">{{total_quiz_submit}}</h1>
+                        <p class="card-text">Submissions</p>
+                        <ul class="list-group mt-5">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Today
+                                <span class="badge bg-primary rounded-pill">{{today_quiz_submit}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Gain %
+                                <span class="badge bg-primary rounded-pill">{{gain_quiz_submit|default:0}}%</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 mb-3">
+                <div class="card">
+                    <div class="card-body text-center mt-4">
+                        <h1 class="card-title pricing-card-title">{{total_questions}}</h1>
+                        <p class="card-text">Questions</p>
+                        <ul class="list-group mt-5">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Today
+                                <span class="badge bg-primary rounded-pill">{{today_questions}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Gain %
+                                <span class="badge bg-primary rounded-pill">{{gain_questions|default:0}}%</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3 mb-3">
+                INBOX GOES HERE
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

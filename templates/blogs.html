@@ -7,36 +7,20 @@
 
 <main>
     <div class="container col-md-6 col-sm-12">
+        {% for year_count in year_blog_count %}
+        <h3>{{year_count.year}} - ({{year_count.count}} blogs)</h3>
         <ul class="list mb-4 p-3">
-            <h3>2023</h3>
+            {% for blog in blogs %}
+            {% if blog.created_at|date:"Y" == year_count.year|stringformat:"s" %}
             <li class="d-flex justify-content-between mb-2">
-                <a href="/blogs/2">Bootstrap 5.3.1</a>
-                <span title="26 Jul 23 08:05 UTC" class="text-secondary">Jul 26, 2023</span>
+                <a href="{% url 'blog' blog.id %}">{{blog.title}}</a>
+                <span class="text-secondary">{{blog.created_at}}</span>
             </li>
-            <li class="d-flex justify-content-between mb-2">
-                <a href="/blogs/2">Bootstrap 5.3.1</a>
-                <span title="26 Jul 23 08:05 UTC" class="text-secondary">Jul 26, 2023</span>
-            </li>
-            <li class="d-flex justify-content-between mb-2">
-                <a href="/blogs/2">Bootstrap 5.3.1</a>
-                <span title="26 Jul 23 08:05 UTC" class="text-secondary">Jul 26, 2023</span>
-            </li>
+            {% endif %}
+            {% endfor %}
         </ul>
-        <ul class="list mb-4 p-3">
-            <h3>2023</h3>
-            <li class="d-flex justify-content-between mb-2">
-                <a href="/blogs/2">Bootstrap 5.3.1</a>
-                <span title="26 Jul 23 08:05 UTC" class="text-secondary">Jul 26, 2023</span>
-            </li>
-            <li class="d-flex justify-content-between mb-2">
-                <a href="/blogs/2">Bootstrap 5.3.1</a>
-                <span title="26 Jul 23 08:05 UTC" class="text-secondary">Jul 26, 2023</span>
-            </li>
-            <li class="d-flex justify-content-between mb-2">
-                <a href="/blogs/2">Bootstrap 5.3.1</a>
-                <span title="26 Jul 23 08:05 UTC" class="text-secondary">Jul 26, 2023</span>
-            </li>
-        </ul>
+        {% endfor %}
+        
     </div>
 </main>
 

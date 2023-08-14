@@ -5,6 +5,11 @@
 {% block content %}
 
     <h1 class="display-4 text-center my-5">@{{user_profile2.user.username}}'s Profile</h1>
+    <div class="mb-3">
+        {% for message in messages %}
+        <h5 class="text-{{message.level_tag}} text-center">{{message}}</h5>
+        {% endfor %}
+      </div>
     <div class="container text-center">
         {% if request.user.username == user_profile2.user.username %}
         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
@@ -34,7 +39,7 @@
         <hr class="my-5">
 
         <div class="container">
-            <div class="row row-cols-sm-1 row-cols-md-1 row-cols-lg-2">
+            <div class="row row-cols-sm-1 row-cols-md-1 row-cols-lg-1">
                 <div class="col-12">
                     <h3>Quiz attended by @{{user_profile2.user.username}}</h3>
                     <table class="table">
@@ -50,16 +55,13 @@
                             {% for submission in submissions %}
                             <tr>
                                 <th scope="row">{{forloop.counter}}</th>
-                                <td title="{{submission.quiz.title}}">{{submission.quiz.title|truncatewords:4}}</td>
+                                <td title="{{submission.quiz.title}}">{{submission.quiz.title|truncatewords:6}}</td>
                                 <td>{{submission.score}}/{{submission.quiz.question_set.all|length}}</td>
                                 <td>{{submission.submitted_at|timesince}} ago</td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
-                </div>
-                <div class="col-12">
-                    <h3>@{{user_profile2.user.username}}'s performance</h3>
                 </div>
             </div>
         </div>

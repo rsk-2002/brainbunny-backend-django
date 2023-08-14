@@ -1,0 +1,26 @@
+{% extends 'index.html' %}
+
+{% block title %}User Search - BrainBunny{% endblock title %}
+
+{% block content %}
+<div class="container text-center">
+    <h1 class="display-4 text-center my-5">Search result for query - "{{query}}"</h1>
+
+    <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 mx-3">
+        {% if users|length == 0 %}
+        <div class="col-lg-4 position-relative mb-4">
+            <h4 class="text-center text-danger">No User Available related to this query!!</h4>
+        </div>
+        {% else %}
+        {% for user in users %}
+        <div class="col-lg-4 position-relative mb-4">
+            <img src="{{user.profile.profile_img.url}}" class="img-fluid" width="150" height="150" alt="user-profile">
+            <h2 class="fw-normal">@{{user.username}}</h2>
+            <p>{{user.profile.bio|truncatewords:5}}</p>
+            <p><a class="btn btn-secondary" href="{% url 'profile' user.username  %}">View Profile »</a></p>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

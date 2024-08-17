@@ -3,6 +3,11 @@
 {% block title %}{{quiz.title}} - BrainBunny{% endblock title %}
 
 {% block content %}
+    <style>
+        .questions {
+            user-select: none;
+        }
+    </style>
 
     <h1 class="display-4 text-center my-5">{{quiz.title}} - ({{quiz.question_set.all|length}})</h1>
     <p class="fs-4 text-center container">{{quiz.description}}</p>

@@ -1,0 +1,74 @@
+{% extends 'index.html' %}
+
+{% load custom_filters %}
+
+{% block title %}Result for {{submission.quiz.title}} - BrainBunny{% endblock title %}
+
+{% block content %}
+
+    <style>
+        .result-card {
+            max-width: 400px;
+            margin: auto;
+        }
+
+        .result-card .card-body {
+            padding: 1.5rem;
+        }
+        
+        .questions {
+            user-select: none;
+        }
+    </style>
+
+    <div class="container my-5">
+
+        <div class="result-card">
+            <div class="card shadow">
+                <div class="card-header text-center bg-primary text-white">
+                    <h5>Quiz Result Summary</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Name:</strong> {{ submission.user.profile.full_name }}</p>
+                    <hr>
+                    <p><strong>Quiz:</strong> {{ submission.quiz.title|title }}</p>
+                    <p><strong>Total Questions:</strong> {{ submission.quiz.question_set.count }}</p>
+                    <p><strong>Total Correct Answers:</strong> {{ submission.score }}</p>
+                    <p><strong>Total Incorrect Answers:</strong> {{ submission.quiz.question_set.count|subtract:submission.score }}</p>
+                    <p><strong>Submit at:</strong> {{ submission.submitted_at|timesince }} ago</p>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{% url 'all_quiz' %}" class="btn btn-primary">All Quiz</a>
+                    <a href="{% url 'quiz' submission.quiz.id %}" class="btn btn-primary">Retake</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="questions my-4">
+            {% for question in submission.quiz.question_set.all %}
+            <div class="card mb-2 question">
+                <div class="card-header fw-bold">
+                    Question {{forloop.counter}}
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{question.text}}</p>
+                    {% for option in question.choice_set.all %}
+                    <div class="form-check">
+                        <label class="form-check-label" for="{{option.id}}">
+                            <input class="form-check-input" disabled {% if option.is_correct %}checked{% endif %} value="{{option.text}}" type="radio" name="{{option.question.id}}" id="{{option.id}}">
+                            {{option.text}}
+                        </label>
+                        {% if option.is_correct %}
+                        <span class="visually-hidden correct-answer">{{option.text}}</span>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+{% endblock content %}

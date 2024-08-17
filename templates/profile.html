@@ -49,6 +49,7 @@
                                 <th scope="col">Quiz</th>
                                 <th scope="col">Marks</th>
                                 <th scope="col">Time</th>
+                                <th scope="col">Details</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,6 +59,9 @@
                                 <td title="{{submission.quiz.title}}">{{submission.quiz.title|truncatewords:6}}</td>
                                 <td>{{submission.score}}/{{submission.quiz.question_set.all|length}}</td>
                                 <td>{{submission.submitted_at|timesince}} ago</td>
+                                <td>
+                                    <a href="{% url 'quiz_result' submission.id %}">Detail</a>
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>

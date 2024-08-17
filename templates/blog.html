@@ -16,6 +16,10 @@
                 <sub>Published</sub><br>
                 <span>{{blog.created_at|timesince}} ago</span>
             </div>
+            <div>
+                <sub>Updated</sub><br>
+                <span>{{blog.updated_at|timesince}} ago</span>
+            </div>
         </div>
         <article class="blog-post">
             {{blog.content|safe}}

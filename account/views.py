@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, auth
@@ -54,27 +54,23 @@ def register(request):
     context = {}
     return render(request, "register.html", context)
 
-@login_required(login_url='login')
+@login_required
 def profile(request, username):
 
     # profile user
-    user_object2 = User.objects.get(username=username)
-    user_profile2 = Profile.objects.get(user=user_object2)
-
-    # request user
-    user_object = User.objects.get(username=request.user)
-    user_profile = Profile.objects.get(user=user_object)
+    user_object2 = get_object_or_404(User, username=username)
+    user_profile2 = get_object_or_404(Profile, user=user_object2)
 
     submissions = QuizSubmission.objects.filter(user=user_object2)
 
-    context = {"user_profile": user_profile, "user_profile2": user_profile2, "submissions":submissions}
+    context = {"user_profile2": user_profile2, "submissions":submissions}
     return render(request, "profile.html", context)
 
-@login_required(login_url='login')
+@login_required
 def editProfile(request):
 
-    user_object = User.objects.get(username=request.user)
-    user_profile = Profile.objects.get(user=user_object)
+    user_object = request.user
+    user_profile = request.user.profile
 
     if request.method == "POST":
         # Image
@@ -84,7 +80,7 @@ def editProfile(request):
 
         # Email
         if request.POST.get('email') != None:
-            u = User.objects.filter(email=request.POST.get('email')).first()
+            u = get_object_or_404(User, email=request.POST.get('email'))
 
             if u == None:
                 user_object.email = request.POST.get('email')
@@ -96,7 +92,7 @@ def editProfile(request):
 
         # Username
         if request.POST.get('username') != None:
-            u = User.objects.filter(username=request.POST.get('username')).first()
+            u = get_object_or_404(User, username=request.POST.get('username'))
 
             if u == None:
                 user_object.username = request.POST.get('username')
@@ -124,21 +120,18 @@ def editProfile(request):
     return render(request, 'profile-edit.html', context)
 
 
-@login_required(login_url='login')
+@login_required
 def deleteProfile(request):
 
-    user_object = User.objects.get(username=request.user)
-    user_profile = Profile.objects.get(user=user_object)
+    user_object = request.user
+    user_profile = request.user.profile
 
     if request.method == "POST":
         user_profile.delete()
         user_object.delete()
         return redirect('logout')
 
-
-
-    context = {"user_profile": user_profile}
-    return render(request, 'confirm.html', context)
+    return render(request, 'confirm.html')
 
 
 def login(request):
@@ -160,7 +153,7 @@ def login(request):
 
     return render(request, "login.html")
 
-@login_required(login_url='login')
+@login_required
 def logout(request):
     auth.logout(request)
     return redirect('login')

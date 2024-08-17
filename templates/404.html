@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+{% block title %}404 Not Found - BrainBunny{% endblock title %}
+
+{% block content %}
+
+<style>
+    h1 {
+        margin: 100px 0;
+        font-size: 100px;
+    }
+</style>
+
+<div class="container my-5">
+    <h1 class="text-center text-danger">404 Not Found</h1>
+    <p class="text-center">
+        <a href="{% url 'home' %}" class="btn btn-primary btn-lg">Go to Home Page</a>
+    </p>
+</div>
+{% endblock content %}

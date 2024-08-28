@@ -125,7 +125,6 @@ def contact_view(request):
 @login_required
 def message_view(request, id):
 
-    message = Message.objects.filter(id=int(id)).first()
     message = get_object_or_404(Message, pk=id)
     if not message.is_read:
         message.is_read = True

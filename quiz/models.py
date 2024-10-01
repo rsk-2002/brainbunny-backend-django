@@ -4,7 +4,9 @@ from django.contrib.auth.models import User
 from django.db.models import Sum
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
+from smart_open import open
+import io
+from django.db import transaction
 
 # Create your models here.
 class Category(models.Model):
@@ -38,8 +40,13 @@ class Quiz(models.Model):
 
     # function to extract excel file
     def import_quiz_from_excel(self):
-        # read teh excel file
-        df = pd.read_excel(self.quiz_file.path)
+        # Use self.quiz_file.url to get the S3 file URL
+        s3_url = self.quiz_file.url
+
+        # Use smart_open to read the Excel file from S3
+        with open(s3_url, 'rb') as file:
+            # Load the Excel file content into a pandas DataFrame
+            df = pd.read_excel(io.BytesIO(file.read()))
 
         # iterate over the each row
         for index, row in df.iterrows():
@@ -96,7 +103,7 @@ class UserRank(models.Model):
 @receiver(post_save, sender=QuizSubmission)
 def update_leaderboard(sender, instance, created, **kwargs):
     if created:
-        update_leaderboard()
+        transaction.on_commit(lambda: update_leaderboard())
 
 
 

@@ -63,6 +63,9 @@ python-3.11
 - White noise setup
 [whitenoise](https://pypi.org/project/whitenoise/)
 
+- pip install gunicorn
+to install gunicorn
+
 - Update your requirement.txt
 pip freeze > requirement.txt
 
